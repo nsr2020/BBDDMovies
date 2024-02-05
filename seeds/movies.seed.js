@@ -43,10 +43,10 @@ const movies = [
 ];
 
 
-const moviesDocuments = movies.map(movie => new Movie(movie));
+
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/test.movies')
+  .connect('mongodb+srv://nsr2020:narciso@cluster0.owceb1k.mongodb.net/?retryWrites=true&w=majority')
   .then(async () => {
 		
     const allMovies = await Movie.find();
@@ -59,7 +59,8 @@ mongoose
   .catch((err) => console.log(`Error deleting data: ${err}`))
   .then(async () => {
 	
-		await Movie.insertMany(moviesDocuments,{ writeConcern: { wtimeout: 20000  } });
+		await Movie.insertMany(movies);
+    console.log("Se han agregado correctamente");
 	})
   .catch((err) => console.log(`Error creating data: ${err}`))
 	
